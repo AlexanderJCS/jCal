@@ -37,7 +37,7 @@ public class CalendarEvent implements AutoCloseable {
         int durationUntilEvent = (int) canvas.startTime().until(this.startTime, ChronoUnit.SECONDS);
         int eventDuration = (int) startTime.until(this.endTime, ChronoUnit.SECONDS);
 
-        float widthScale = (float) calendarNumber / numCalendars;
+        float widthScale = (float) 1 / numCalendars;
         float rectWidth = this.canvas.columnWidth();
 
         float rectHeight = (float) eventDuration / calendarDuration * this.canvas.height();

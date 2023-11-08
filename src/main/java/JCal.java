@@ -1,17 +1,18 @@
 import calendar.Calendar;
+import calendar.CalendarSet;
 import jangl.JANGL;
 import jangl.io.Window;
 
 public class JCal implements AutoCloseable {
-    private final Calendar calendar;
+    private final CalendarSet calendarSet;
 
     public JCal() {
-        this.calendar = new Calendar();
+        this.calendarSet = new CalendarSet();
     }
 
     public void run() {
         while (Window.shouldRun()) {
-            this.calendar.draw();
+            this.calendarSet.draw();
 
             JANGL.update();
         }
@@ -19,6 +20,6 @@ public class JCal implements AutoCloseable {
 
     @Override
     public void close() {
-        this.calendar.close();
+        this.calendarSet.close();
     }
 }
