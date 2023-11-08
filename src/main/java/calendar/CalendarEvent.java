@@ -48,7 +48,10 @@ public class CalendarEvent implements AutoCloseable {
 
         // Offset the top left coordinate so that the calendar event doesn't stay in the middle of the column when the
         // width of the event is not equal to the width of the column
-        rectLeft += this.canvas.columnWidth() * (calendarNumber - 1f) / numCalendars;
+
+        // I have no idea why this value needs to be -1.5f instead of -1f, but it does, and honestly it's hurting my
+        // brain too much, so I'll just not question it
+        rectLeft += this.canvas.columnWidth() * (calendarNumber - 1.5f) / numCalendars;
 
         // Set the intended rect position. Add the top and the left values by width and height / 2 since setPos sets the
         // center of the object.
