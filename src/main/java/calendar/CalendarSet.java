@@ -1,5 +1,7 @@
 package calendar;
 
+import calendar.ui.DayMarkings;
+import calendar.ui.TimeMarkings;
 import jangl.coords.WorldCoords;
 
 import java.time.LocalTime;
@@ -10,6 +12,7 @@ public class CalendarSet implements AutoCloseable {
     private final List<Calendar> calendars;
     private final CalendarCanvas canvas;
     private final TimeMarkings timeMarkings;
+    private final DayMarkings dayMarkings;
 
     public CalendarSet() {
         float canvasTopYPadding = 0.1f;
@@ -22,6 +25,7 @@ public class CalendarSet implements AutoCloseable {
         );
 
         this.timeMarkings = new TimeMarkings(this.canvas);
+        this.dayMarkings = new DayMarkings(this.canvas);
 
         this.calendars = new ArrayList<>();
         this.addCalendar(new Calendar(this.canvas));
@@ -38,6 +42,7 @@ public class CalendarSet implements AutoCloseable {
 
     public void draw() {
         this.timeMarkings.draw();
+        this.dayMarkings.draw();
 
         for (Calendar calendar : this.calendars) {
             calendar.draw();

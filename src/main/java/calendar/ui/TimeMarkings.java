@@ -1,5 +1,6 @@
-package calendar;
+package calendar.ui;
 
+import calendar.CalendarCanvas;
 import jangl.color.ColorFactory;
 import jangl.coords.WorldCoords;
 import jangl.graphics.batching.Batch;
@@ -9,8 +10,6 @@ import jangl.graphics.font.Text;
 import jangl.shapes.Rect;
 
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +51,7 @@ public class TimeMarkings implements AutoCloseable {
 
             timeText.add(
                     new Text(
-                            worldCoordLocation, this.font, textHeight, "" + time.getHour() + ":00"
+                            worldCoordLocation, this.font, textHeight, time.getHour() + ":00"
                     )
             );
         }
