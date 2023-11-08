@@ -12,6 +12,7 @@ public class JCal implements AutoCloseable {
 
     public void run() {
         while (Window.shouldRun()) {
+            Window.clear();
             this.calendarSet.draw();
 
             JANGL.update();

@@ -15,14 +15,8 @@ public class Calendar implements AutoCloseable {
     private final List<CalendarEvent> events;
     private final ShaderProgram colorShader;
 
-    public Calendar() {
-        this.canvas = new CalendarCanvas(
-                new WorldCoords(0, WorldCoords.getTopRight().y),
-                WorldCoords.getTopRight(),
-                LocalTime.of(8, 0),
-                LocalTime.of(20,0)
-        );
-
+    public Calendar(CalendarCanvas canvas) {
+        this.canvas = canvas;
         this.colorShader = new ShaderProgram(new ColorShader(ColorFactory.fromNormalizedHSVA((float) Math.random(), 0.7f, 0.7f, 1)));
 
         this.events = new ArrayList<>();
