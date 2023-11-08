@@ -44,7 +44,7 @@ public class CalendarEvent implements AutoCloseable {
 
         float rectTop = this.canvas.height() - (float) durationUntilEvent / calendarDuration * this.canvas.height();
 
-        float rectLeft = (float) this.day.ordinal() / WeekDay.numDays() * this.canvas.width();
+        float rectLeft = (float) this.day.ordinal() / WeekDay.numDays() * this.canvas.width() + canvas.topLeft().x;
 
         // Offset the top left coordinate so that the calendar event doesn't stay in the middle of the column when the
         // width of the event is not equal to the width of the column
