@@ -15,11 +15,12 @@ public class CalendarSet implements AutoCloseable {
     private final DayMarkings dayMarkings;
 
     public CalendarSet() {
-        float canvasTopYPadding = 0.1f;
+        float canvasTopPadding = 0.1f;
+        float canvasLeftPadding = 0.1f;
 
         this.canvas = new CalendarCanvas(
-                new WorldCoords(0, WorldCoords.getTopRight().y - canvasTopYPadding),
-                new WorldCoords(WorldCoords.getTopRight().x, WorldCoords.getTopRight().y - canvasTopYPadding),
+                new WorldCoords(canvasLeftPadding, WorldCoords.getTopRight().y - canvasTopPadding),
+                new WorldCoords(WorldCoords.getTopRight().x - canvasLeftPadding, WorldCoords.getTopRight().y - canvasTopPadding),
                 LocalTime.of(8, 0),
                 LocalTime.of(20,0)
         );

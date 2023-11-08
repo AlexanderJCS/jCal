@@ -6,6 +6,7 @@ import jangl.coords.WorldCoords;
 import jangl.graphics.batching.Batch;
 import jangl.graphics.batching.BatchBuilder;
 import jangl.graphics.font.Font;
+import jangl.graphics.font.Justify;
 import jangl.graphics.font.Text;
 import jangl.shapes.Rect;
 
@@ -37,23 +38,22 @@ public class TimeMarkings implements AutoCloseable {
         // There's probably much faster ways to do exactly what I'm doing now but computers are fast, this operation is
         // inexpensive, and it only needs to be run once so whatever
 
-        float textHeight = 0.025f;
+        float textHeight = 0.03f;
         WorldCoords worldCoordLocation = canvas.topLeft();
         worldCoordLocation.y += textHeight / 2;
         worldCoordLocation.y += worldCoordsPerMinute;
+        worldCoordLocation.x -= 0.01f;
 
-        for (LocalTime time = canvas.startTime(); time.isBefore(canvas.endTime()); time = time.plusMinutes(1)) {
+        // Add 1 minute to the start time to skip the first hour, assuming that the canvas starts exactly at the top of
+        // the hour. This makes the canvas look more aesthetically pleasing
+        for (LocalTime time = canvas.startTime().plusMinutes(1); time.isBefore(canvas.endTime()); time = time.plusMinutes(1)) {
             worldCoordLocation.y -= worldCoordsPerMinute;
 
             if (time.getMinute() != 0) {
                 continue;
             }
 
-            timeText.add(
-                    new Text(
-                            worldCoordLocation, this.font, textHeight, time.getHour() + ":00"
-                    )
-            );
+            timeText.add(new Text(worldCoordLocation, this.font, textHeight, time.getHour() + ":00", Justify.RIGHT));
         }
 
         return timeText;
@@ -72,6 +72,8 @@ public class TimeMarkings implements AutoCloseable {
         WorldCoords worldCoordLocation = canvas.topLeft();
         worldCoordLocation.y += worldCoordsPerMinute;
 
+        // Add 1 minute to the start time to skip the first hour, assuming that the canvas starts exactly at the top of
+        // the hour. This makes the canvas look more aesthetically pleasing
         for (LocalTime time = canvas.startTime(); time.isBefore(canvas.endTime()); time = time.plusMinutes(1)) {
             worldCoordLocation.y -= worldCoordsPerMinute;
 
