@@ -3,7 +3,6 @@ package calendar;
 import calendar.ui.DayMarkings;
 import calendar.ui.TimeMarkings;
 import jangl.coords.WorldCoords;
-import parser.JCalParser;
 
 import java.time.LocalTime;
 import java.util.ArrayList;

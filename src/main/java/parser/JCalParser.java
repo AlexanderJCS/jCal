@@ -4,7 +4,6 @@ import calendar.Calendar;
 import calendar.CalendarCanvas;
 import calendar.CalendarEvent;
 import calendar.WeekDay;
-import jangl.color.Color;
 import jangl.color.ColorFactory;
 
 import java.io.File;
