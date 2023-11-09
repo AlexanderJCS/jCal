@@ -30,7 +30,6 @@ public class CalendarSet implements AutoCloseable {
         this.dayMarkings = new DayMarkings(this.canvas);
 
         this.calendars = new ArrayList<>();
-        this.addCalendar(new JCalParser().parse(this.canvas, "src/main/resources/calendars/alex.jcal"));
     }
 
     public void addCalendar(Calendar calendar) {
