@@ -9,6 +9,9 @@ public class JCal implements AutoCloseable {
     public JCal() {
         this.calendarSet = new CalendarSet();
         this.calendarSet.addCalendar(new JCalParser().parse(this.calendarSet.getCanvas(), "src/main/resources/calendars/alex.jcal"));
+        // this.calendarSet.addCalendar(new JCalParser().parse(this.calendarSet.getCanvas(), "src/main/resources/calendars/alex.jcal"));
+        // this.calendarSet.addCalendar(new JCalParser().parse(this.calendarSet.getCanvas(), "src/main/resources/calendars/alex.jcal"));
+        // this.calendarSet.addCalendar(new JCalParser().parse(this.calendarSet.getCanvas(), "src/main/resources/calendars/alex.jcal"));
     }
 
     public void run() {

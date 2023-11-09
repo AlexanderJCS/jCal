@@ -56,7 +56,10 @@ public class CalendarEvent implements AutoCloseable {
 
         // The -0.5f * (numCalendars - 1) needs to be added since the calendar event is centered in the middle
         // of the column, instead of the top left of the column.
-        rectLeft += this.canvas.columnWidth() * (calendarNumber - 1f - 0.5f * (numCalendars - 1)) / numCalendars + 0.002f;
+        rectLeft += this.canvas.columnWidth() * (calendarNumber - 1f - 0.5f * (numCalendars - 1)) / numCalendars;
+
+        // Minor spacing changes
+        rectLeft += 0.002f * (1 - (float) (calendarNumber - 1) / numCalendars);
 
         // Set the intended rect position. Add the top and the left values by width and height / 2 since setPos sets the
         // center of the object.
