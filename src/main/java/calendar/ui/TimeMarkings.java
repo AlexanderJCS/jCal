@@ -1,7 +1,6 @@
 package calendar.ui;
 
 import calendar.CalendarCanvas;
-import jangl.color.ColorFactory;
 import jangl.coords.WorldCoords;
 import jangl.graphics.batching.Batch;
 import jangl.graphics.batching.BatchBuilder;
