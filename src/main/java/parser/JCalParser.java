@@ -55,7 +55,8 @@ public class JCalParser {
         if (metadata.get("color") != null) {
             String[] splitColor = metadata.get("color").split(",");
 
-            if (splitColor.length != 4) {
+            // If the length is not 4 or 3
+            if (!(splitColor.length == 4 || splitColor.length == 3)) {
                 throw new JCalParseException("Could not parse the color:\n" + metadata.get("color"));
             }
 
@@ -64,7 +65,7 @@ public class JCalParser {
                             Integer.parseInt(splitColor[0]),
                             Integer.parseInt(splitColor[1]),
                             Integer.parseInt(splitColor[2]),
-                            Integer.parseInt(splitColor[3])
+                            splitColor.length == 4 ? Integer.parseInt(splitColor[3]) : 255
                     )
             );
         }
