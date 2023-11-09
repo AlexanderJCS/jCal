@@ -4,6 +4,8 @@ import calendar.Calendar;
 import calendar.CalendarCanvas;
 import calendar.CalendarEvent;
 import calendar.WeekDay;
+import jangl.color.Color;
+import jangl.color.ColorFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,6 +46,27 @@ public class JCalParser {
             } else {
                 calendar.addEvent(this.parseEvent(line, currentDay, canvas));
             }
+        }
+
+        if (metadata.get("name") != null) {
+            calendar.setCalendarName(metadata.get("name"));
+        }
+
+        if (metadata.get("color") != null) {
+            String[] splitColor = metadata.get("color").split(",");
+
+            if (splitColor.length != 4) {
+                throw new JCalParseException("Could not parse the color:\n" + metadata.get("color"));
+            }
+
+            calendar.setColor(
+                    ColorFactory.from255(
+                            Integer.parseInt(splitColor[0]),
+                            Integer.parseInt(splitColor[1]),
+                            Integer.parseInt(splitColor[2]),
+                            Integer.parseInt(splitColor[3])
+                    )
+            );
         }
 
         return calendar;
