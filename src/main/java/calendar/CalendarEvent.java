@@ -28,7 +28,7 @@ public class CalendarEvent implements AutoCloseable {
         this.rect = new Rect(new WorldCoords(0, 0), 0, 0);
         this.regenerateRect(1, 1);
 
-        this.text = new Text(this.rect.getTransform().getCenter(), Fonts.ARIAL, 0.05f, title, Justify.CENTER);
+        this.text = new Text(this.rect.getTransform().getCenter(), Fonts.ARIAL, 0.025f, title, Justify.CENTER);
         this.text.getTransform().rotate((float) -Math.PI / 2);  // Rotate the text -90 degrees
     }
 
