@@ -10,6 +10,7 @@ import jangl.graphics.font.Font;
 import jangl.graphics.font.Justify;
 import jangl.graphics.font.Text;
 import jangl.shapes.Rect;
+import uihelper.Fonts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,7 @@ public class DayMarkings implements AutoCloseable {
     private final Batch lines;
 
     public DayMarkings(CalendarCanvas canvas) {
-        this.font = new Font("src/main/resources/font/arial.fnt", "src/main/resources/font/arial.png");
-        this.font.setKeepDefaultColors(false);
-        this.font.setFontColor(ColorFactory.fromNormalized(0, 0, 0, 1));
+        this.font = Fonts.ARIAL;
 
         this.dayMarkings = this.generateDayMarkings(canvas);
         this.lines = this.generateLines(canvas);

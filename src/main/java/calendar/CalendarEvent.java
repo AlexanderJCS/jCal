@@ -1,13 +1,15 @@
 package calendar;
 
 import jangl.coords.WorldCoords;
+import jangl.graphics.font.Text;
 import jangl.shapes.Rect;
+import uihelper.Fonts;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 public class CalendarEvent implements AutoCloseable {
-    private final String title;
+    private final Text text;
     private final WeekDay day;
     private final LocalTime startTime;
     private final LocalTime endTime;
@@ -15,7 +17,6 @@ public class CalendarEvent implements AutoCloseable {
     private final CalendarCanvas canvas;
 
     public CalendarEvent(String title, CalendarCanvas canvas, WeekDay day, LocalTime startTime, LocalTime endTime) {
-        this.title = title;
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -25,6 +26,8 @@ public class CalendarEvent implements AutoCloseable {
         // method is run
         this.rect = new Rect(new WorldCoords(0, 0), 0, 0);
         this.setCalendarNumber(1, 1);
+
+        this.text = new Text(this.rect.getTransform().getCenter(), Fonts.ARIAL, 0.02f, title);
     }
 
     public void setCalendarNumber(int calendarNumber, int numCalendars) {
@@ -67,6 +70,7 @@ public class CalendarEvent implements AutoCloseable {
 
     public void draw() {
         this.rect.draw();
+        this.text.draw();
     }
 
     @Override
