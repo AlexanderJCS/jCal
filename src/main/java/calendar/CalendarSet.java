@@ -23,7 +23,7 @@ public class CalendarSet implements AutoCloseable {
                 new WorldCoords(canvasLeftPadding, WorldCoords.getTopRight().y - canvasTopPadding),
                 new WorldCoords(WorldCoords.getTopRight().x - canvasLeftPadding, WorldCoords.getTopRight().y - canvasTopPadding),
                 LocalTime.of(8, 0),
-                LocalTime.of(20,0)
+                LocalTime.of(18,0)
         );
 
         this.timeMarkings = new TimeMarkings(this.canvas);
