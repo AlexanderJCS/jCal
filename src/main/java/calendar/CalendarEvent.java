@@ -43,11 +43,11 @@ public class CalendarEvent implements AutoCloseable {
         int eventDuration = (int) startTime.until(this.endTime, ChronoUnit.SECONDS);
 
         float widthScale = (float) 1 / numCalendars;
-        float rectWidth = this.canvas.columnWidth();
+        float rectWidth = this.canvas.columnWidth() - 0.002f;
 
-        float rectHeight = (float) eventDuration / calendarDuration * this.canvas.height();
+        float rectHeight = (float) eventDuration / calendarDuration * this.canvas.height() - 0.002f;
 
-        float rectTop = this.canvas.height() - (float) durationUntilEvent / calendarDuration * this.canvas.height();
+        float rectTop = this.canvas.height() - (float) durationUntilEvent / calendarDuration * this.canvas.height() - 0.002f;
 
         float rectLeft = (float) this.day.ordinal() / WeekDay.numDays() * this.canvas.width() + this.canvas.topLeft().x;
 
@@ -56,7 +56,7 @@ public class CalendarEvent implements AutoCloseable {
 
         // The -0.5f * (numCalendars - 1) needs to be added since the calendar event is centered in the middle
         // of the column, instead of the top left of the column.
-        rectLeft += this.canvas.columnWidth() * (calendarNumber - 1f - 0.5f * (numCalendars - 1)) / numCalendars;
+        rectLeft += this.canvas.columnWidth() * (calendarNumber - 1f - 0.5f * (numCalendars - 1)) / numCalendars + 0.002f;
 
         // Set the intended rect position. Add the top and the left values by width and height / 2 since setPos sets the
         // center of the object.
