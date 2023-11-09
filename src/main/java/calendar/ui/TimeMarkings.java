@@ -21,7 +21,7 @@ public class TimeMarkings implements AutoCloseable {
     private final Batch lines;
 
     public TimeMarkings(CalendarCanvas canvas) {
-        this.font = Fonts.ARIAL;
+        this.font = Fonts.ARIAL_BLACK;
 
         this.timeText = this.generateTimeText(canvas);
         this.lines = this.generateLines(canvas);

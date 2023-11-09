@@ -2,7 +2,6 @@ package calendar.ui;
 
 import calendar.CalendarCanvas;
 import calendar.WeekDay;
-import jangl.color.ColorFactory;
 import jangl.coords.WorldCoords;
 import jangl.graphics.batching.Batch;
 import jangl.graphics.batching.BatchBuilder;
@@ -21,7 +20,7 @@ public class DayMarkings implements AutoCloseable {
     private final Batch lines;
 
     public DayMarkings(CalendarCanvas canvas) {
-        this.font = Fonts.ARIAL;
+        this.font = Fonts.ARIAL_BLACK;
 
         this.dayMarkings = this.generateDayMarkings(canvas);
         this.lines = this.generateLines(canvas);
