@@ -1,6 +1,7 @@
 package calendar;
 
 import jangl.coords.WorldCoords;
+import jangl.graphics.font.Justify;
 import jangl.graphics.font.Text;
 import jangl.shapes.Rect;
 import uihelper.Fonts;
@@ -25,12 +26,13 @@ public class CalendarEvent implements AutoCloseable {
         // Insert temporary values for the rectangle, since it will be set to non-temp values when the setCalendarNumber
         // method is run
         this.rect = new Rect(new WorldCoords(0, 0), 0, 0);
-        this.setCalendarNumber(1, 1);
+        this.regenerateRect(1, 1);
 
-        this.text = new Text(this.rect.getTransform().getCenter(), Fonts.ARIAL, 0.02f, title);
+        this.text = new Text(this.rect.getTransform().getCenter(), Fonts.ARIAL, 0.05f, title, Justify.CENTER);
+        this.text.getTransform().rotate((float) -Math.PI / 2);  // Rotate the text -90 degrees
     }
 
-    public void setCalendarNumber(int calendarNumber, int numCalendars) {
+    private void regenerateRect(int calendarNumber, int numCalendars) {
         /*
          * to anybody, including my future self, reading this code:
          * good luck...
@@ -66,6 +68,11 @@ public class CalendarEvent implements AutoCloseable {
         if (Math.abs(this.rect.getHeight() - rectHeight) > 0.0001f) {
             this.rect.setHeight(rectHeight);
         }
+    }
+
+    public void setCalendarNumber(int calendarNumber, int numCalendars) {
+        this.regenerateRect(calendarNumber, numCalendars);
+        this.text.getTransform().setPos(this.rect.getTransform().getCenter());
     }
 
     public void draw() {
