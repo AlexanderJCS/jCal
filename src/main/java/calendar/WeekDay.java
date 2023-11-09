@@ -1,7 +1,7 @@
 package calendar;
 
 public enum WeekDay {
-    MON, TUES, WED, THURS, FRI;
+    MON, TUE, WED, THU, FRI;
 
     /**
      * @return The number of values in the enum
