@@ -9,11 +9,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class JCalParser {
     public Calendar parse(CalendarCanvas canvas, String filepath) throws JCalParseException {
         Calendar calendar = new Calendar();
+        HashMap<String, String> metadata = new HashMap<>();
 
         Scanner scanner;
         try {
@@ -33,6 +35,10 @@ public class JCalParser {
 
             if (line.startsWith("[") && line.endsWith("]")) {
                 currentDay = this.parseDay(line);
+            } else if (line.startsWith("#meta ")) {
+                String[] keyValue = this.parseMeta(line);
+                metadata.put(keyValue[0], keyValue[1]);
+
             } else if (currentDay == null) {
                 throw new JCalParseException("Could not parse line: it is not associated with a week day\n" + line);
             } else {
@@ -79,5 +85,22 @@ public class JCalParser {
         LocalTime endTime = LocalTime.parse(times[1], formatter);
 
         return new CalendarEvent(eventName, canvas, day, startTime, endTime);
+    }
+
+    private String[] parseMeta(String line) throws JCalParseException {
+        String originalLine = line;
+
+        line = line.replace("#meta", "");
+        line = line.strip();
+
+        String[] keyValue = line.split("=");
+        if (keyValue.length != 2) {
+            throw new JCalParseException("Could not find key/value pair for meta line:\n" + originalLine);
+        }
+
+        keyValue[0] = keyValue[0].strip();
+        keyValue[1] = keyValue[1].strip();
+
+        return keyValue;
     }
 }

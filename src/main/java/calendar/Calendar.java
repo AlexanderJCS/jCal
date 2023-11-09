@@ -1,5 +1,6 @@
 package calendar;
 
+import jangl.color.Color;
 import jangl.color.ColorFactory;
 import jangl.graphics.shaders.ShaderProgram;
 import jangl.graphics.shaders.premade.ColorShader;
@@ -9,10 +10,12 @@ import java.util.List;
 
 public class Calendar implements AutoCloseable {
     private final List<CalendarEvent> events;
-    private final ShaderProgram colorShader;
+    private ShaderProgram colorShader;
+    private String calendarName;
 
     public Calendar() {
         this.colorShader = new ShaderProgram(new ColorShader(ColorFactory.fromNormalizedHSVA((float) Math.random(), 0.7f, 0.7f, 1)));
+        this.calendarName = "";
 
         this.events = new ArrayList<>();
     }
@@ -33,6 +36,15 @@ public class Calendar implements AutoCloseable {
             event.draw();
             this.colorShader.unbind();
         }
+    }
+
+    public void setCalendarName(String name) {
+        this.calendarName = name;
+    }
+
+    public void setColor(Color color) {
+        this.colorShader.close();
+        this.colorShader = new ShaderProgram(new ColorShader(color));
     }
 
     @Override
