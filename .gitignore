@@ -1,6 +1,3 @@
-# Project-specific files
-*.jcal
-
 # IDE things
 .idea
 .vscode
