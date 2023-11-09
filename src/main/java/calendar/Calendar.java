@@ -20,7 +20,6 @@ public class Calendar implements AutoCloseable {
         this.colorShader = new ShaderProgram(new ColorShader(ColorFactory.fromNormalizedHSVA((float) Math.random(), 0.7f, 0.7f, 1)));
 
         this.events = new ArrayList<>();
-        this.events.add(new CalendarEvent("Test", this.canvas, WeekDay.FRI, LocalTime.of(9, 0), LocalTime.of(17, 0)));
     }
 
     public void setCalendarNumber(int calendarNumber, int numCalendars) {

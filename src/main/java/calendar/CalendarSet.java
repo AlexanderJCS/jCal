@@ -3,6 +3,7 @@ package calendar;
 import calendar.ui.DayMarkings;
 import calendar.ui.TimeMarkings;
 import jangl.coords.WorldCoords;
+import parser.JCalParser;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -29,8 +30,7 @@ public class CalendarSet implements AutoCloseable {
         this.dayMarkings = new DayMarkings(this.canvas);
 
         this.calendars = new ArrayList<>();
-        this.addCalendar(new Calendar(this.canvas));
-        this.addCalendar(new Calendar(this.canvas));
+        this.addCalendar(new JCalParser().parse(this.canvas, "src/main/resources/calendars/alex.jcal"));
     }
 
     public void addCalendar(Calendar calendar) {
@@ -39,6 +39,10 @@ public class CalendarSet implements AutoCloseable {
         for (int i = 0; i < this.calendars.size(); i++) {
             this.calendars.get(i).setCalendarNumber(i + 1, this.calendars.size());
         }
+    }
+
+    public CalendarCanvas getCanvas() {
+        return canvas;
     }
 
     public void draw() {
