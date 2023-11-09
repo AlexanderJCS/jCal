@@ -1,4 +1,3 @@
-import calendar.Calendar;
 import calendar.CalendarSet;
 import jangl.JANGL;
 import jangl.io.Window;

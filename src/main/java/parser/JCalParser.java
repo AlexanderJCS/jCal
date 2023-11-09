@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class JCalParser {
     public Calendar parse(CalendarCanvas canvas, String filepath) throws JCalParseException {
-        Calendar calendar = new Calendar(canvas);
+        Calendar calendar = new Calendar();
 
         Scanner scanner;
         try {
