@@ -34,7 +34,7 @@ public class DayMarkings implements AutoCloseable {
 
         float fontSize = 0.05f;
 
-        cursor.y += fontSize;
+        cursor.y += fontSize * 2;
 
         for (WeekDay day : WeekDay.values()) {
             dayMarkings.add(new Text(cursor, this.font, fontSize, day.toString(), Justify.CENTER));

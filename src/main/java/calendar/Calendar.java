@@ -1,5 +1,6 @@
 package calendar;
 
+import calendar.ui.CalendarTitle;
 import jangl.color.Color;
 import jangl.color.ColorFactory;
 import jangl.graphics.shaders.ShaderProgram;
@@ -11,19 +12,25 @@ import java.util.List;
 public class Calendar implements AutoCloseable {
     private final List<CalendarEvent> events;
     private ShaderProgram colorShader;
-    private String calendarName;
+    private final CalendarTitle title;
 
-    public Calendar() {
+    public Calendar(CalendarCanvas canvas) {
         this.colorShader = new ShaderProgram(new ColorShader(ColorFactory.fromNormalizedHSVA((float) Math.random(), 0.7f, 0.7f, 1)));
-        this.calendarName = "";
+        this.title = new CalendarTitle(canvas, "");
 
         this.events = new ArrayList<>();
+    }
+
+    public void setCalendarTitle(String name) {
+        this.title.setTitle(name);
     }
 
     public void setCalendarNumber(int calendarNumber, int numCalendars) {
         for (CalendarEvent event : this.events) {
             event.setCalendarNumber(calendarNumber, numCalendars);
         }
+
+        this.title.setCalendarNumber(calendarNumber, numCalendars);
     }
 
     public void addEvent(CalendarEvent event) {
@@ -36,10 +43,8 @@ public class Calendar implements AutoCloseable {
             event.draw();
             this.colorShader.unbind();
         }
-    }
 
-    public void setCalendarName(String name) {
-        this.calendarName = name;
+        this.title.draw();
     }
 
     public void setColor(Color color) {
@@ -49,8 +54,11 @@ public class Calendar implements AutoCloseable {
 
     @Override
     public void close() {
+        // TODO: code smell! only de-allocate resources that the object allocated
         for (CalendarEvent event : this.events) {
             event.close();
         }
+
+        this.title.close();
     }
 }

@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class JCalParser {
     public Calendar parse(CalendarCanvas canvas, String filepath) throws JCalParseException {
-        Calendar calendar = new Calendar();
+        Calendar calendar = new Calendar(canvas);
         HashMap<String, String> metadata = new HashMap<>();
 
         Scanner scanner;
@@ -48,7 +48,7 @@ public class JCalParser {
         }
 
         if (metadata.get("name") != null) {
-            calendar.setCalendarName(metadata.get("name"));
+            calendar.setCalendarTitle(metadata.get("name"));
         }
 
         if (metadata.get("color") != null) {
