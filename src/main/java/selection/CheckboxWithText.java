@@ -24,10 +24,6 @@ public class CheckboxWithText implements AutoCloseable {
         return this.checkbox.isSelected();
     }
 
-    public boolean wasToggledLastUpdate() {
-        return this.checkbox.wasToggledLastUpdate();
-    }
-
     public WorldCoords getDimensions() {
         return this.checkbox.getDimensions();
     }
@@ -38,6 +34,14 @@ public class CheckboxWithText implements AutoCloseable {
 
     public String getText() {
         return this.text.getText();
+    }
+
+    public void toggle() {
+        this.checkbox.toggle();
+    }
+
+    public void setState(boolean state) {
+        this.checkbox.setState(state);
     }
 
     public void draw() {

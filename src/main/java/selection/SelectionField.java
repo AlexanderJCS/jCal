@@ -21,6 +21,7 @@ public class SelectionField implements AutoCloseable {
 
         this.calendars = calendarSet.getCalendars().toArray(new Calendar[0]);
         this.checkboxes = generateCheckboxes(canvas, this.calendars);
+        this.syncCheckboxes();
     }
 
     private static CheckboxWithText[] generateCheckboxes(SelectionCanvas canvas, Calendar[] selectionSet) {
@@ -30,10 +31,30 @@ public class SelectionField implements AutoCloseable {
         for (int i = 0; i < checkboxes.length; i++) {
             checkboxes[i] = new CheckboxWithText(cursor, selectionSet[i].getTitle());
 
+            // Only have the first 3 checkboxes on by default
+            if (i >= 3) {
+                checkboxes[i].setState(false);
+            }
+
             cursor.y -= checkboxes[i].getDimensions().y * 1.2f;
         }
 
         return checkboxes;
+    }
+
+    private void syncCheckboxes() {
+        for (int i = 0; i < this.checkboxes.length; i++) {
+            CheckboxWithText checkbox = this.checkboxes[i];
+            Calendar calendar = this.calendars[i];
+
+            if (checkbox.isSelected() && !this.calendarSet.getCalendars().contains(calendar)) {
+                this.calendarSet.addCalendar(calendar);
+            }
+
+            else if (!checkbox.isSelected()) {
+                this.calendarSet.removeCalendar(calendar);
+            }
+        }
     }
 
     public void draw() {
@@ -44,18 +65,10 @@ public class SelectionField implements AutoCloseable {
 
     public void update(List<MouseEvent> mouseEvents) {
         for (int i = 0; i < this.checkboxes.length; i++) {
-            CheckboxWithText checkbox = this.checkboxes[i];
-            checkbox.update(mouseEvents);
-
-            if (checkbox.wasToggledLastUpdate()) {
-                if (checkbox.isSelected()) {
-                    this.calendarSet.addCalendar(this.calendars[i]);
-                } else {
-                    this.calendarSet.removeCalendar(this.calendars[i]);
-                }
-            }
+            this.checkboxes[i].update(mouseEvents);
         }
 
+        this.syncCheckboxes();
         this.refreshCalendarTitles();
     }
 

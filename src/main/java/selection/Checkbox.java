@@ -19,14 +19,12 @@ public class Checkbox implements AutoCloseable {
     private final ShaderProgram colorShaderProgram;
     private final Rect rect;
     private boolean selected;
-    private boolean toggledLastUpdate;
 
     private static final Texture EMPTY_CHECKBOX = new Texture(new TextureBuilder().setImagePath("src/main/resources/textures/empty_checkbox.png"));
     private static final Texture FULL_CHECKBOX = new Texture(new TextureBuilder().setImagePath("src/main/resources/textures/full_checkbox.png"));
 
     public Checkbox(WorldCoords topLeft) {
         this.selected = true;
-        this.toggledLastUpdate = false;
         this.colorShader = new ColorShader(ColorFactory.fromNormalized(1, 1, 1, 1));
         this.colorShaderProgram = new ShaderProgram(this.colorShader);
         this.resetColors();
@@ -38,14 +36,15 @@ public class Checkbox implements AutoCloseable {
         return this.selected;
     }
 
-    public boolean wasToggledLastUpdate() {
-        return this.toggledLastUpdate;
-    }
-
     public void toggle() {
-        this.toggledLastUpdate = true;
         this.selected = !this.selected;
         this.resetColors();
+    }
+
+    public void setState(boolean state) {
+        if (state != this.selected) {
+            this.toggle();
+        }
     }
 
     public WorldCoords getDimensions() {
@@ -57,8 +56,6 @@ public class Checkbox implements AutoCloseable {
     }
 
     public void update(List<MouseEvent> mouseEvents) {
-        this.toggledLastUpdate = false;
-
         for (MouseEvent event : mouseEvents) {
             if (event.button != GLFW.GLFW_MOUSE_BUTTON_1 || event.action != GLFW.GLFW_PRESS) {
                 continue;
