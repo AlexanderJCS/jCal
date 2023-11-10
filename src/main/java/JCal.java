@@ -54,7 +54,7 @@ public class JCal implements AutoCloseable {
     }
 
     private static void loadCalendars(CalendarSet calendarSet) {
-        File calendarDir = new File("src/main/resources/calendars");
+        File calendarDir = new File("resources/calendars");
         File[] calendarFiles = calendarDir.listFiles();
 
         if (calendarFiles == null) {

@@ -20,8 +20,8 @@ public class Checkbox implements AutoCloseable {
     private final Rect rect;
     private boolean selected;
 
-    private static final Texture EMPTY_CHECKBOX = new Texture(new TextureBuilder().setImagePath("src/main/resources/textures/empty_checkbox.png"));
-    private static final Texture FULL_CHECKBOX = new Texture(new TextureBuilder().setImagePath("src/main/resources/textures/full_checkbox.png"));
+    private static final Texture EMPTY_CHECKBOX = new Texture(new TextureBuilder().setImagePath("resources/textures/empty_checkbox.png"));
+    private static final Texture FULL_CHECKBOX = new Texture(new TextureBuilder().setImagePath("resources/textures/full_checkbox.png"));
 
     public Checkbox(WorldCoords topLeft) {
         this.selected = true;
