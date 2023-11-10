@@ -17,10 +17,12 @@ public class CalendarSet implements AutoCloseable {
     public CalendarSet() {
         float canvasTopPadding = 0.1f;
         float canvasLeftPadding = 0.1f;
+        float canvasRightPadding = 0.3f;
+        float canvasBottomPadding = 0f;
 
         this.canvas = new CalendarCanvas(
                 new WorldCoords(canvasLeftPadding, WorldCoords.getTopRight().y - canvasTopPadding),
-                new WorldCoords(WorldCoords.getTopRight().x - canvasLeftPadding, WorldCoords.getTopRight().y - canvasTopPadding),
+                new WorldCoords(WorldCoords.getTopRight().x - canvasLeftPadding - canvasRightPadding, WorldCoords.getTopRight().y - canvasTopPadding - canvasBottomPadding),
                 LocalTime.of(8, 0),
                 LocalTime.of(18,0)
         );

@@ -52,7 +52,7 @@ public class DayMarkings implements AutoCloseable {
 
         float lineWidth = 0.002f;
 
-        for (int i = 0; i < WeekDay.numDays(); i++) {
+        for (int i = 0; i < WeekDay.numDays() + 1; i++) {
             Rect rect = new Rect(cursor, lineWidth, canvas.height());
 
             builder.addObject(rect);
