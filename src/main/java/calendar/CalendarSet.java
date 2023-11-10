@@ -4,6 +4,7 @@ import calendar.ui.DayMarkings;
 import calendar.ui.TimeMarkings;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class CalendarSet implements AutoCloseable {
@@ -23,6 +24,11 @@ public class CalendarSet implements AutoCloseable {
 
     public void addCalendar(Calendar calendar) {
         this.calendars.add(calendar);
+
+        this.calendars.sort(
+                Comparator.comparing(Calendar::getTitle)
+        );
+
         this.refreshCalendarNumbers();
     }
 
