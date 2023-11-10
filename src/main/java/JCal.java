@@ -1,4 +1,3 @@
-import calendar.Calendar;
 import calendar.CalendarCanvas;
 import calendar.CalendarSet;
 import jangl.JANGL;
@@ -9,6 +8,7 @@ import parser.JCalParser;
 import selection.SelectionCanvas;
 import selection.SelectionField;
 
+import java.io.File;
 import java.time.LocalTime;
 
 public class JCal implements AutoCloseable {
@@ -16,25 +16,32 @@ public class JCal implements AutoCloseable {
     private final SelectionField selectionField;
 
     public JCal() {
+        CalendarCanvas calendarCanvas = getCalendarCanvas();
+
+        this.calendarSet = new CalendarSet(calendarCanvas);
+        loadCalendars(this.calendarSet);
+
+        this.selectionField = new SelectionField(
+                getSelectionCanvas(calendarCanvas),
+                this.calendarSet
+        );
+    }
+
+    private static CalendarCanvas getCalendarCanvas() {
         float canvasTopPadding = 0.1f;
         float canvasLeftPadding = 0.1f;
         float canvasRightPadding = 0.3f;
         float canvasBottomPadding = 0f;
 
-        CalendarCanvas calendarCanvas = new CalendarCanvas(
+        return new CalendarCanvas(
                 new WorldCoords(canvasLeftPadding, WorldCoords.getTopRight().y - canvasTopPadding),
                 new WorldCoords(WorldCoords.getTopRight().x - canvasLeftPadding - canvasRightPadding, WorldCoords.getTopRight().y - canvasTopPadding - canvasBottomPadding),
                 LocalTime.of(8, 0),
                 LocalTime.of(18,0)
         );
+    }
 
-        this.calendarSet = new CalendarSet(calendarCanvas);
-
-        this.calendarSet.addCalendar(new JCalParser().parse(this.calendarSet.getCanvas(), "src/main/resources/calendars/alex.jcal"));
-        this.calendarSet.addCalendar(new JCalParser().parse(this.calendarSet.getCanvas(), "src/main/resources/calendars/ash.jcal"));
-        this.calendarSet.addCalendar(new JCalParser().parse(this.calendarSet.getCanvas(), "src/main/resources/calendars/camila.jcal"));
-        this.calendarSet.addCalendar(new JCalParser().parse(this.calendarSet.getCanvas(), "src/main/resources/calendars/eden.jcal"));
-
+    private static SelectionCanvas getSelectionCanvas(CalendarCanvas calendarCanvas) {
         WorldCoords selectionCanvasTopLeft = calendarCanvas.topLeft();
         selectionCanvasTopLeft.x += calendarCanvas.width() + 0.05f;
 
@@ -43,10 +50,27 @@ public class JCal implements AutoCloseable {
                 calendarCanvas.widthHeight().y
         );
 
-        this.selectionField = new SelectionField(
-                new SelectionCanvas(selectionCanvasTopLeft, selectionCanvasWidthHeight),
-                this.calendarSet
-        );
+        return new SelectionCanvas(selectionCanvasTopLeft, selectionCanvasWidthHeight);
+    }
+
+    private static void loadCalendars(CalendarSet calendarSet) {
+        File calendarDir = new File("src/main/resources/calendars");
+        File[] calendarFiles = calendarDir.listFiles();
+
+        if (calendarFiles == null) {
+            throw new RuntimeException("Could not find the directory " + calendarDir.getPath());
+        }
+
+        for (File calendarFile : calendarFiles) {
+            // Skip non-calendar files
+            if (calendarFile.isDirectory() || !calendarFile.getName().endsWith(".jcal")) {
+                continue;
+            }
+
+            calendarSet.addCalendar(
+                    new JCalParser().parse(calendarSet.getCanvas(), calendarFile.getPath())
+            );
+        }
     }
 
     private void draw() {
