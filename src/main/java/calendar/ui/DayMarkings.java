@@ -2,12 +2,15 @@ package calendar.ui;
 
 import calendar.CalendarCanvas;
 import calendar.WeekDay;
+import jangl.color.ColorFactory;
 import jangl.coords.WorldCoords;
 import jangl.graphics.batching.Batch;
 import jangl.graphics.batching.BatchBuilder;
 import jangl.graphics.font.Font;
 import jangl.graphics.font.Justify;
 import jangl.graphics.font.Text;
+import jangl.graphics.shaders.ShaderProgram;
+import jangl.graphics.shaders.premade.ColorShader;
 import jangl.shapes.Rect;
 import uihelper.Fonts;
 
@@ -18,12 +21,14 @@ public class DayMarkings implements AutoCloseable {
     private final Font font;
     private final List<Text> dayMarkings;
     private final Batch lines;
+    private final ShaderProgram lineShader;
 
     public DayMarkings(CalendarCanvas canvas) {
         this.font = Fonts.ARIAL_BLACK;
 
         this.dayMarkings = this.generateDayMarkings(canvas);
         this.lines = this.generateLines(canvas);
+        this.lineShader = new ShaderProgram(new ColorShader(ColorFactory.fromNormalized(0.7f, 0.7f, 0.7f, 1)));
     }
 
     private List<Text> generateDayMarkings(CalendarCanvas canvas) {
@@ -65,7 +70,7 @@ public class DayMarkings implements AutoCloseable {
     }
 
     public void draw() {
-        this.lines.draw();
+        this.lines.draw(this.lineShader);
 
         for (Text text : this.dayMarkings) {
             text.draw();

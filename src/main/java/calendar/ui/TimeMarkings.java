@@ -1,12 +1,15 @@
 package calendar.ui;
 
 import calendar.CalendarCanvas;
+import jangl.color.ColorFactory;
 import jangl.coords.WorldCoords;
 import jangl.graphics.batching.Batch;
 import jangl.graphics.batching.BatchBuilder;
 import jangl.graphics.font.Font;
 import jangl.graphics.font.Justify;
 import jangl.graphics.font.Text;
+import jangl.graphics.shaders.ShaderProgram;
+import jangl.graphics.shaders.premade.ColorShader;
 import jangl.shapes.Rect;
 import uihelper.Fonts;
 
@@ -19,12 +22,15 @@ public class TimeMarkings implements AutoCloseable {
     private final Font font;
     private final List<Text> timeText;
     private final Batch lines;
+    private final ShaderProgram lineShader;
 
     public TimeMarkings(CalendarCanvas canvas) {
         this.font = Fonts.ARIAL_BLACK;
 
         this.timeText = this.generateTimeText(canvas);
         this.lines = this.generateLines(canvas);
+
+        this.lineShader = new ShaderProgram(new ColorShader(ColorFactory.fromNormalized(0.7f, 0.7f, 0.7f, 1)));
     }
 
     private List<Text> generateTimeText(CalendarCanvas canvas) {
@@ -88,7 +94,7 @@ public class TimeMarkings implements AutoCloseable {
     }
 
     public void draw() {
-        this.lines.draw();
+        this.lines.draw(this.lineShader);
 
         for (Text text : this.timeText) {
             text.draw();
@@ -103,5 +109,6 @@ public class TimeMarkings implements AutoCloseable {
 
         this.lines.close();
         this.font.close();
+        this.lineShader.close();
     }
 }
