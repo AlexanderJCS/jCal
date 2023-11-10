@@ -2,9 +2,7 @@ package calendar;
 
 import calendar.ui.DayMarkings;
 import calendar.ui.TimeMarkings;
-import jangl.coords.WorldCoords;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
