@@ -4,6 +4,8 @@ import jangl.color.ColorFactory;
 import jangl.coords.WorldCoords;
 import jangl.graphics.shaders.ShaderProgram;
 import jangl.graphics.shaders.premade.ColorShader;
+import jangl.graphics.textures.Texture;
+import jangl.graphics.textures.TextureBuilder;
 import jangl.io.mouse.Mouse;
 import jangl.io.mouse.MouseEvent;
 import jangl.shapes.Rect;
@@ -19,8 +21,11 @@ public class Checkbox implements AutoCloseable {
     private boolean selected;
     private boolean toggledLastUpdate;
 
+    private static final Texture EMPTY_CHECKBOX = new Texture(new TextureBuilder().setImagePath("src/main/resources/textures/empty_checkbox.png"));
+    private static final Texture FULL_CHECKBOX = new Texture(new TextureBuilder().setImagePath("src/main/resources/textures/full_checkbox.png"));
+
     public Checkbox(WorldCoords topLeft) {
-        this.selected = false;
+        this.selected = true;
         this.toggledLastUpdate = false;
         this.colorShader = new ColorShader(ColorFactory.fromNormalized(1, 1, 1, 1));
         this.colorShaderProgram = new ShaderProgram(this.colorShader);
@@ -48,7 +53,7 @@ public class Checkbox implements AutoCloseable {
     }
 
     public void draw() {
-        this.rect.draw(this.colorShaderProgram);
+        this.rect.draw(this.selected ? FULL_CHECKBOX : EMPTY_CHECKBOX);
     }
 
     public void update(List<MouseEvent> mouseEvents) {

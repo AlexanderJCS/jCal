@@ -48,13 +48,11 @@ public class SelectionField implements AutoCloseable {
             checkbox.update(mouseEvents);
 
             if (checkbox.wasToggledLastUpdate()) {
-                continue;
-            }
-
-            if (checkbox.isSelected()) {
-                this.calendarSet.removeCalendar(this.calendars[i]);
-            } else {
-                this.calendarSet.addCalendar(this.calendars[i]);
+                if (checkbox.isSelected()) {
+                    this.calendarSet.addCalendar(this.calendars[i]);
+                } else {
+                    this.calendarSet.removeCalendar(this.calendars[i]);
+                }
             }
         }
 
