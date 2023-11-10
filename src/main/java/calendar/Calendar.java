@@ -8,6 +8,7 @@ import jangl.graphics.shaders.premade.ColorShader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Calendar implements AutoCloseable {
     private final List<CalendarEvent> events;
@@ -23,6 +24,10 @@ public class Calendar implements AutoCloseable {
 
     public void setCalendarTitle(String name) {
         this.title.setTitle(name);
+    }
+
+    public String getTitle() {
+        return this.title.getTitle();
     }
 
     public void setCalendarNumber(int calendarNumber, int numCalendars) {
@@ -60,5 +65,18 @@ public class Calendar implements AutoCloseable {
         }
 
         this.title.close();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Calendar calendar = (Calendar) o;
+        return Objects.equals(this.events, calendar.events) && Objects.equals(this.colorShader, calendar.colorShader) && Objects.equals(this.title, calendar.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.events, this.colorShader, this.title);
     }
 }

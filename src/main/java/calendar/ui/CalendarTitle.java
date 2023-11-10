@@ -47,6 +47,10 @@ public class CalendarTitle implements AutoCloseable {
         }
     }
 
+    public String getTitle() {
+        return this.title;
+    }
+
     public void setCalendarNumber(int calendarNumber, int numCalendars) {
         WorldCoords cursor = new WorldCoords(
                 this.canvas.topLeft().x + this.canvas.columnWidth() * calendarNumber / numCalendars,

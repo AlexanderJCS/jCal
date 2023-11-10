@@ -14,18 +14,8 @@ public class CalendarSet implements AutoCloseable {
     private final TimeMarkings timeMarkings;
     private final DayMarkings dayMarkings;
 
-    public CalendarSet() {
-        float canvasTopPadding = 0.1f;
-        float canvasLeftPadding = 0.1f;
-        float canvasRightPadding = 0.3f;
-        float canvasBottomPadding = 0f;
-
-        this.canvas = new CalendarCanvas(
-                new WorldCoords(canvasLeftPadding, WorldCoords.getTopRight().y - canvasTopPadding),
-                new WorldCoords(WorldCoords.getTopRight().x - canvasLeftPadding - canvasRightPadding, WorldCoords.getTopRight().y - canvasTopPadding - canvasBottomPadding),
-                LocalTime.of(8, 0),
-                LocalTime.of(18,0)
-        );
+    public CalendarSet(CalendarCanvas canvas) {
+        this.canvas = canvas;
 
         this.timeMarkings = new TimeMarkings(this.canvas);
         this.dayMarkings = new DayMarkings(this.canvas);
@@ -35,10 +25,22 @@ public class CalendarSet implements AutoCloseable {
 
     public void addCalendar(Calendar calendar) {
         this.calendars.add(calendar);
+        this.refreshCalendarNumbers();
+    }
 
+    public void removeCalendar(Calendar calendar) {
+        this.calendars.remove(calendar);
+        this.refreshCalendarNumbers();
+    }
+
+    private void refreshCalendarNumbers() {
         for (int i = 0; i < this.calendars.size(); i++) {
             this.calendars.get(i).setCalendarNumber(i + 1, this.calendars.size());
         }
+    }
+
+    public List<Calendar> getCalendars() {
+        return new ArrayList<>(this.calendars);
     }
 
     public CalendarCanvas getCanvas() {
