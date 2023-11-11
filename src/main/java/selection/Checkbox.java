@@ -24,8 +24,8 @@ public class Checkbox implements AutoCloseable {
     private boolean selected;
     private final ShaderProgram checkboxShader;
 
-    private static final Texture EMPTY_CHECKBOX = new Texture(new TextureBuilder().setImagePath("resources/textures/empty_checkbox.png"));
-    private static final Texture FULL_CHECKBOX = new Texture(new TextureBuilder().setImagePath("resources/textures/full_checkbox.png"));
+    private static final Texture EMPTY_CHECKBOX = new Texture(new TextureBuilder().setImagePath("resources/textures/empty_checkbox.png").setSmoothScaling());
+    private static final Texture FULL_CHECKBOX = new Texture(new TextureBuilder().setImagePath("resources/textures/full_checkbox.png").setSmoothScaling());
 
     public Checkbox(WorldCoords topLeft, Color calendarColor) {
         this.selected = true;
