@@ -1,5 +1,6 @@
 package selection;
 
+import jangl.color.Color;
 import jangl.coords.WorldCoords;
 import jangl.graphics.font.Text;
 import jangl.io.mouse.MouseEvent;
@@ -11,10 +12,10 @@ public class CheckboxWithText implements AutoCloseable {
     private final Checkbox checkbox;
     private final Text text;
 
-    public CheckboxWithText(WorldCoords location, String text) {
+    public CheckboxWithText(WorldCoords location, String text, Color calendarColor) {
         location = new WorldCoords(location.x, location.y);
 
-        this.checkbox = new Checkbox(location);
+        this.checkbox = new Checkbox(location, calendarColor);
 
         location.x += this.checkbox.getDimensions().x * 1.2f;
         this.text = new Text(location, Fonts.ARIAL_BLACK, this.checkbox.getDimensions().y, text);

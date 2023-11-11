@@ -29,7 +29,7 @@ public class SelectionField implements AutoCloseable {
         CheckboxWithText[] checkboxes = new CheckboxWithText[selectionSet.length];
 
         for (int i = 0; i < checkboxes.length; i++) {
-            checkboxes[i] = new CheckboxWithText(cursor, selectionSet[i].getTitle());
+            checkboxes[i] = new CheckboxWithText(cursor, selectionSet[i].getTitle(), selectionSet[i].getColor());
 
             // Only have the first 3 checkboxes on by default
             if (i >= 3) {
@@ -64,8 +64,8 @@ public class SelectionField implements AutoCloseable {
     }
 
     public void update(List<MouseEvent> mouseEvents) {
-        for (int i = 0; i < this.checkboxes.length; i++) {
-            this.checkboxes[i].update(mouseEvents);
+        for (CheckboxWithText checkbox : this.checkboxes) {
+            checkbox.update(mouseEvents);
         }
 
         this.syncCheckboxes();

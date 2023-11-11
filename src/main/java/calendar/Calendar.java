@@ -12,11 +12,13 @@ import java.util.Objects;
 
 public class Calendar implements AutoCloseable {
     private final List<CalendarEvent> events;
+    private Color color;
     private ShaderProgram colorShader;
     private final CalendarTitle title;
 
     public Calendar(CalendarCanvas canvas) {
-        this.colorShader = new ShaderProgram(new ColorShader(ColorFactory.fromNormalizedHSVA((float) Math.random(), 0.7f, 0.7f, 1)));
+        this.color = ColorFactory.fromNormalizedHSVA((float) Math.random(), 0.7f, 0.7f, 1);
+        this.colorShader = new ShaderProgram(new ColorShader(this.color));
         this.title = new CalendarTitle(canvas, "");
 
         this.events = new ArrayList<>();
@@ -53,8 +55,13 @@ public class Calendar implements AutoCloseable {
     }
 
     public void setColor(Color color) {
+        this.color = color;
         this.colorShader.close();
         this.colorShader = new ShaderProgram(new ColorShader(color));
+    }
+
+    public Color getColor() {
+        return this.color;
     }
 
     @Override
