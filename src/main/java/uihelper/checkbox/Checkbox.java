@@ -1,4 +1,4 @@
-package selection;
+package uihelper.checkbox;
 
 import jangl.color.Color;
 import jangl.color.ColorFactory;

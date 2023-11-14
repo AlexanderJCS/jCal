@@ -2,7 +2,7 @@ import jangl.JANGL;
 import jangl.color.ColorFactory;
 import jangl.graphics.textures.TextureBuilder;
 import jangl.io.Window;
-import selection.Checkbox;
+import uihelper.checkbox.Checkbox;
 import uihelper.Fonts;
 
 public class Main {

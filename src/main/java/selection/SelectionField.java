@@ -4,6 +4,7 @@ import calendar.Calendar;
 import calendar.CalendarSet;
 import jangl.coords.WorldCoords;
 import jangl.io.mouse.MouseEvent;
+import uihelper.checkbox.CheckboxWithText;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package uihelper;
+package uihelper.layout;
 
 import jangl.coords.WorldCoords;
 

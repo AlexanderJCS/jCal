@@ -1,7 +1,7 @@
 package calendar;
 
 import jangl.coords.WorldCoords;
-import uihelper.Canvas;
+import uihelper.layout.Canvas;
 
 import java.time.LocalTime;
 

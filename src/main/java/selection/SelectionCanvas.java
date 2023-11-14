@@ -1,7 +1,7 @@
 package selection;
 
 import jangl.coords.WorldCoords;
-import uihelper.Canvas;
+import uihelper.layout.Canvas;
 
 public class SelectionCanvas extends Canvas {
     public SelectionCanvas(WorldCoords topLeft, WorldCoords widthHeight) {
