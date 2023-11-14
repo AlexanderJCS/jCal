@@ -12,10 +12,10 @@ public class CheckboxWithText implements AutoCloseable {
     private final Checkbox checkbox;
     private final Text text;
 
-    public CheckboxWithText(WorldCoords location, String text, Color calendarColor) {
+    public CheckboxWithText(WorldCoords location, String text, Color color) {
         location = new WorldCoords(location.x, location.y);
 
-        this.checkbox = new Checkbox(location, calendarColor);
+        this.checkbox = new Checkbox(location, color);
 
         location.x += this.checkbox.getDimensions().x * 1.2f;
         this.text = new Text(location, Fonts.ARIAL_BLACK, this.checkbox.getDimensions().y, text);
