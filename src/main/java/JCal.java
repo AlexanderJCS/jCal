@@ -33,7 +33,7 @@ public class JCal implements AutoCloseable {
         );
 
         WorldCoords selectionFieldTopLeft = new WorldCoords(viewSharedClassesTopLeft.x, viewSharedClassesTopLeft.y);
-        selectionFieldTopLeft.y -= 0.2f;
+        selectionFieldTopLeft.y -= this.viewSharedClasses.getDimensions().y + 0.05f;
 
         this.selectionField = new SelectionField(
                 selectionFieldTopLeft,
@@ -77,7 +77,11 @@ public class JCal implements AutoCloseable {
 
     private void draw() {
         Window.clear();
-        this.calendarSet.draw();
+
+        if (!this.viewSharedClasses.isSelected()) {
+            this.calendarSet.draw();
+        }
+
         this.selectionField.draw();
         this.viewSharedClasses.draw();
     }

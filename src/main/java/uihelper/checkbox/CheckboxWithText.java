@@ -25,6 +25,9 @@ public class CheckboxWithText implements AutoCloseable {
         return this.checkbox.isSelected();
     }
 
+    /**
+     * @return The x and y dimensions of the checkbox. Does *not* include the dimensions of the text.
+     */
     public WorldCoords getDimensions() {
         return this.checkbox.getDimensions();
     }
