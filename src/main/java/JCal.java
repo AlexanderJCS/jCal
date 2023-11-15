@@ -1,18 +1,22 @@
 import calendar.CalendarCanvas;
 import calendar.CalendarSet;
+import calendarview.ViewSharedClasses;
 import jangl.JANGL;
 import jangl.coords.WorldCoords;
 import jangl.io.Window;
 import jangl.io.mouse.Mouse;
+import jangl.io.mouse.MouseEvent;
 import parser.JCalParser;
 import selection.SelectionField;
 
 import java.io.File;
 import java.time.LocalTime;
+import java.util.List;
 
 public class JCal implements AutoCloseable {
     private final CalendarSet calendarSet;
     private final SelectionField selectionField;
+    private final ViewSharedClasses viewSharedClasses;
 
     public JCal() {
         CalendarCanvas calendarCanvas = getCalendarCanvas();
@@ -20,8 +24,16 @@ public class JCal implements AutoCloseable {
         this.calendarSet = new CalendarSet(calendarCanvas);
         loadCalendars(this.calendarSet);
 
-        WorldCoords selectionFieldTopLeft = calendarCanvas.topLeft();
-        selectionFieldTopLeft.x += calendarCanvas.width() + 0.05f;
+        WorldCoords viewSharedClassesTopLeft = calendarCanvas.topLeft();
+        viewSharedClassesTopLeft.x += calendarCanvas.width() + 0.05f;
+
+        this.viewSharedClasses = new ViewSharedClasses(
+                viewSharedClassesTopLeft,
+                this.calendarSet
+        );
+
+        WorldCoords selectionFieldTopLeft = new WorldCoords(viewSharedClassesTopLeft.x, viewSharedClassesTopLeft.y);
+        selectionFieldTopLeft.y -= 0.2f;
 
         this.selectionField = new SelectionField(
                 selectionFieldTopLeft,
@@ -67,10 +79,14 @@ public class JCal implements AutoCloseable {
         Window.clear();
         this.calendarSet.draw();
         this.selectionField.draw();
+        this.viewSharedClasses.draw();
     }
 
     private void update() {
-        this.selectionField.update(Mouse.getEvents());
+        List<MouseEvent> mouseEvents = Mouse.getEvents();
+
+        this.selectionField.update(mouseEvents);
+        this.viewSharedClasses.update(mouseEvents);
     }
 
     public void run() {
@@ -86,5 +102,6 @@ public class JCal implements AutoCloseable {
     public void close() {
         this.calendarSet.close();
         this.selectionField.close();
+        this.viewSharedClasses.close();
     }
 }
