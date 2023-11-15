@@ -44,6 +44,10 @@ public class Calendar implements AutoCloseable {
         this.events.add(event);
     }
 
+    public void removeEvent(CalendarEvent event) {
+        this.events.remove(event);
+    }
+
     public List<CalendarEvent> getEvents() {
         return new ArrayList<>(this.events);
     }
