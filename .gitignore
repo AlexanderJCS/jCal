@@ -3,6 +3,7 @@
 .vscode
 Jcal.iml
 out
+MANIFEST.MF
 
 # Compiled class file
 *.class
