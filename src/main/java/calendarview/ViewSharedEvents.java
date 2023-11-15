@@ -1,24 +1,26 @@
 package calendarview;
 
+import calendar.CalendarEvent;
 import calendar.CalendarSet;
 import jangl.color.ColorFactory;
 import jangl.coords.WorldCoords;
 import jangl.io.mouse.MouseEvent;
 import uihelper.checkbox.CheckboxWithText;
 
+import java.util.HashSet;
 import java.util.List;
 
-public class ViewSharedClasses implements AutoCloseable {
+public class ViewSharedEvents implements AutoCloseable {
     private final CalendarSet set;
-    private final CalendarSet sharedClassesCalSet;
+    private final CalendarSet sharedEventsCalSet;
     private final CheckboxWithText checkbox;
 
-    public ViewSharedClasses(WorldCoords topLeft, CalendarSet set) {
+    public ViewSharedEvents(WorldCoords topLeft, CalendarSet set) {
         this.set = set;
         this.checkbox = new CheckboxWithText(topLeft, "Shared", ColorFactory.from255(0, 200, 0, 255));
         this.checkbox.setState(false);
 
-        this.sharedClassesCalSet = new CalendarSet(set.getCanvas());
+        this.sharedEventsCalSet = new CalendarSet(set.getCanvas());
     }
 
     /**
@@ -32,11 +34,15 @@ public class ViewSharedClasses implements AutoCloseable {
         return this.checkbox.isSelected();
     }
 
+    private void getSharedEvents() {
+        HashSet<CalendarEvent> allCalendarEvents;
+    }
+
     public void draw() {
         this.checkbox.draw();
 
         if (this.checkbox.isSelected()) {
-            this.sharedClassesCalSet.draw();
+            this.sharedEventsCalSet.draw();
         }
     }
 

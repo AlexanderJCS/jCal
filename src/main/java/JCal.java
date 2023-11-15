@@ -1,6 +1,6 @@
 import calendar.CalendarCanvas;
 import calendar.CalendarSet;
-import calendarview.ViewSharedClasses;
+import calendarview.ViewSharedEvents;
 import jangl.JANGL;
 import jangl.coords.WorldCoords;
 import jangl.io.Window;
@@ -16,7 +16,7 @@ import java.util.List;
 public class JCal implements AutoCloseable {
     private final CalendarSet calendarSet;
     private final SelectionField selectionField;
-    private final ViewSharedClasses viewSharedClasses;
+    private final ViewSharedEvents viewSharedEvents;
 
     public JCal() {
         CalendarCanvas calendarCanvas = getCalendarCanvas();
@@ -24,16 +24,16 @@ public class JCal implements AutoCloseable {
         this.calendarSet = new CalendarSet(calendarCanvas);
         loadCalendars(this.calendarSet);
 
-        WorldCoords viewSharedClassesTopLeft = calendarCanvas.topLeft();
-        viewSharedClassesTopLeft.x += calendarCanvas.width() + 0.05f;
+        WorldCoords viewSharedEventsTopLeft = calendarCanvas.topLeft();
+        viewSharedEventsTopLeft.x += calendarCanvas.width() + 0.05f;
 
-        this.viewSharedClasses = new ViewSharedClasses(
-                viewSharedClassesTopLeft,
+        this.viewSharedEvents = new ViewSharedEvents(
+                viewSharedEventsTopLeft,
                 this.calendarSet
         );
 
-        WorldCoords selectionFieldTopLeft = new WorldCoords(viewSharedClassesTopLeft.x, viewSharedClassesTopLeft.y);
-        selectionFieldTopLeft.y -= this.viewSharedClasses.getDimensions().y + 0.05f;
+        WorldCoords selectionFieldTopLeft = new WorldCoords(viewSharedEventsTopLeft.x, viewSharedEventsTopLeft.y);
+        selectionFieldTopLeft.y -= this.viewSharedEvents.getDimensions().y + 0.05f;
 
         this.selectionField = new SelectionField(
                 selectionFieldTopLeft,
@@ -78,19 +78,19 @@ public class JCal implements AutoCloseable {
     private void draw() {
         Window.clear();
 
-        if (!this.viewSharedClasses.isSelected()) {
+        if (!this.viewSharedEvents.isSelected()) {
             this.calendarSet.draw();
         }
 
         this.selectionField.draw();
-        this.viewSharedClasses.draw();
+        this.viewSharedEvents.draw();
     }
 
     private void update() {
         List<MouseEvent> mouseEvents = Mouse.getEvents();
 
         this.selectionField.update(mouseEvents);
-        this.viewSharedClasses.update(mouseEvents);
+        this.viewSharedEvents.update(mouseEvents);
     }
 
     public void run() {
@@ -106,6 +106,6 @@ public class JCal implements AutoCloseable {
     public void close() {
         this.calendarSet.close();
         this.selectionField.close();
-        this.viewSharedClasses.close();
+        this.viewSharedEvents.close();
     }
 }
