@@ -17,16 +17,16 @@ public class SelectionField implements AutoCloseable {
     private final Calendar[] calendars;
     private final CalendarSet calendarSet;
 
-    public SelectionField(SelectionCanvas canvas, CalendarSet calendarSet) {
+    public SelectionField(WorldCoords topLeft, CalendarSet calendarSet) {
         this.calendarSet = calendarSet;
 
         this.calendars = calendarSet.getCalendars().toArray(new Calendar[0]);
-        this.checkboxes = generateCheckboxes(canvas, this.calendars);
+        this.checkboxes = generateCheckboxes(topLeft, this.calendars);
         this.syncCheckboxes();
     }
 
-    private static CheckboxWithText[] generateCheckboxes(SelectionCanvas canvas, Calendar[] selectionSet) {
-        WorldCoords cursor = canvas.topLeft();
+    private static CheckboxWithText[] generateCheckboxes(WorldCoords topLeft, Calendar[] selectionSet) {
+        WorldCoords cursor = new WorldCoords(topLeft.x, topLeft.y);
         CheckboxWithText[] checkboxes = new CheckboxWithText[selectionSet.length];
 
         for (int i = 0; i < checkboxes.length; i++) {

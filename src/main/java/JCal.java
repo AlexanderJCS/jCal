@@ -5,7 +5,6 @@ import jangl.coords.WorldCoords;
 import jangl.io.Window;
 import jangl.io.mouse.Mouse;
 import parser.JCalParser;
-import selection.SelectionCanvas;
 import selection.SelectionField;
 
 import java.io.File;
@@ -21,8 +20,11 @@ public class JCal implements AutoCloseable {
         this.calendarSet = new CalendarSet(calendarCanvas);
         loadCalendars(this.calendarSet);
 
+        WorldCoords selectionFieldTopLeft = calendarCanvas.topLeft();
+        selectionFieldTopLeft.x += calendarCanvas.width() + 0.05f;
+
         this.selectionField = new SelectionField(
-                getSelectionCanvas(calendarCanvas),
+                selectionFieldTopLeft,
                 this.calendarSet
         );
     }
@@ -39,18 +41,6 @@ public class JCal implements AutoCloseable {
                 LocalTime.of(8, 0),
                 LocalTime.of(18,0)
         );
-    }
-
-    private static SelectionCanvas getSelectionCanvas(CalendarCanvas calendarCanvas) {
-        WorldCoords selectionCanvasTopLeft = calendarCanvas.topLeft();
-        selectionCanvasTopLeft.x += calendarCanvas.width() + 0.05f;
-
-        WorldCoords selectionCanvasWidthHeight = new WorldCoords(
-                WorldCoords.getTopRight().x - selectionCanvasTopLeft.x,
-                calendarCanvas.widthHeight().y
-        );
-
-        return new SelectionCanvas(selectionCanvasTopLeft, selectionCanvasWidthHeight);
     }
 
     private static void loadCalendars(CalendarSet calendarSet) {
