@@ -8,6 +8,7 @@ import uihelper.Fonts;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 public class CalendarEvent implements AutoCloseable {
     private final Text text;
@@ -81,6 +82,23 @@ public class CalendarEvent implements AutoCloseable {
     public void draw() {
         this.rect.draw();
         this.text.draw();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CalendarEvent event = (CalendarEvent) o;
+        return this.text.equals(event.text)
+                && this.day == event.day
+                && this.startTime.equals(event.startTime)
+                && this.endTime.equals(event.endTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.text, this.day, this.startTime, this.endTime);
     }
 
     @Override
