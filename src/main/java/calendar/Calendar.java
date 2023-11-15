@@ -44,6 +44,10 @@ public class Calendar implements AutoCloseable {
         this.events.add(event);
     }
 
+    public List<CalendarEvent> getEvents() {
+        return new ArrayList<>(this.events);
+    }
+
     public void draw() {
         for (CalendarEvent event : this.events) {
             this.colorShader.bind();
