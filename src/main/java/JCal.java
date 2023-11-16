@@ -1,4 +1,6 @@
+import calendar.Calendar;
 import calendar.CalendarCanvas;
+import calendar.CalendarEvent;
 import calendar.CalendarSet;
 import calendarview.ViewSharedEvents;
 import jangl.JANGL;
@@ -104,6 +106,14 @@ public class JCal implements AutoCloseable {
 
     @Override
     public void close() {
+        for (Calendar calendar : this.calendarSet.getCalendars()) {
+            for (CalendarEvent event : calendar.getEvents()) {
+                event.close();
+            }
+
+            calendar.close();
+        }
+
         this.calendarSet.close();
         this.selectionField.close();
         this.viewSharedEvents.close();

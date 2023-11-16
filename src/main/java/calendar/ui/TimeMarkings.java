@@ -108,7 +108,6 @@ public class TimeMarkings implements AutoCloseable {
         }
 
         this.lines.close();
-        this.font.close();
         this.lineShader.close();
     }
 }

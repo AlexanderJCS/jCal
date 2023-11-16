@@ -62,8 +62,7 @@ public class CalendarSet implements AutoCloseable {
 
     @Override
     public void close() {
-        for (Calendar calendar : this.calendars) {
-            calendar.close();
-        }
+        this.dayMarkings.close();
+        this.timeMarkings.close();
     }
 }

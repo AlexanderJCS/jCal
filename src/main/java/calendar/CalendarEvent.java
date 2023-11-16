@@ -137,6 +137,7 @@ public class CalendarEvent implements AutoCloseable {
 
     @Override
     public void close() {
+        this.text.close();
         this.rect.close();
     }
 }

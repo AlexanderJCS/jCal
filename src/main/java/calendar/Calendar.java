@@ -73,16 +73,6 @@ public class Calendar implements AutoCloseable {
     }
 
     @Override
-    public void close() {
-        // TODO: code smell! only de-allocate resources that the object allocated
-        for (CalendarEvent event : this.events) {
-            event.close();
-        }
-
-        this.title.close();
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -93,5 +83,11 @@ public class Calendar implements AutoCloseable {
     @Override
     public int hashCode() {
         return Objects.hash(this.events, this.colorShader, this.title);
+    }
+
+    @Override
+    public void close() {
+        this.colorShader.close();
+        this.title.close();
     }
 }

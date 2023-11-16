@@ -112,5 +112,8 @@ public class ViewSharedEvents implements AutoCloseable {
     @Override
     public void close() {
         this.checkbox.close();
+
+        this.sharedEventsCal.close();
+        this.sharedEventsCalSet.close();
     }
 }

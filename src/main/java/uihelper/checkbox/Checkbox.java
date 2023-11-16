@@ -19,7 +19,6 @@ import java.util.List;
 
 public class Checkbox implements AutoCloseable {
     private final ColorShader colorShader;
-    private final ShaderProgram colorShaderProgram;
     private final Rect rect;
     private boolean selected;
     private final ShaderProgram checkboxShader;
@@ -30,7 +29,6 @@ public class Checkbox implements AutoCloseable {
     public Checkbox(WorldCoords topLeft, Color calendarColor) {
         this.selected = true;
         this.colorShader = new ColorShader(ColorFactory.fromNormalized(1, 1, 1, 1));
-        this.colorShaderProgram = new ShaderProgram(this.colorShader);
         this.resetColors();
 
         this.rect = new Rect(topLeft, 0.05f, 0.05f);
@@ -93,7 +91,7 @@ public class Checkbox implements AutoCloseable {
 
     @Override
     public void close() {
-        this.colorShaderProgram.close();
+        this.checkboxShader.close();
         this.rect.close();
     }
 }

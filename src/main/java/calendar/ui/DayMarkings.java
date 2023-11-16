@@ -84,6 +84,6 @@ public class DayMarkings implements AutoCloseable {
         }
 
         this.lines.close();
-        this.font.close();
+        this.lineShader.close();
     }
 }
