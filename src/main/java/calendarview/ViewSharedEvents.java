@@ -106,7 +106,10 @@ public class ViewSharedEvents implements AutoCloseable {
 
     public void update(List<MouseEvent> mouseEvents) {
         this.checkbox.update(mouseEvents);
-        this.updateSharedEventsCalendar();
+
+        if (this.isSelected()) {
+            this.updateSharedEventsCalendar();
+        }
     }
 
     @Override
