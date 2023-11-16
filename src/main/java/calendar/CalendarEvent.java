@@ -17,12 +17,17 @@ public class CalendarEvent implements AutoCloseable {
     private final LocalTime endTime;
     private final Rect rect;
     private final CalendarCanvas canvas;
+    private int calendarNumber;
+    private int numCalendars;
 
     public CalendarEvent(String title, CalendarCanvas canvas, WeekDay day, LocalTime startTime, LocalTime endTime) {
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
         this.canvas = canvas;
+
+        this.calendarNumber = 1;
+        this.numCalendars = 1;
 
         // Insert temporary values for the rectangle, since it will be set to non-temp values when the setCalendarNumber
         // method is run
@@ -75,6 +80,13 @@ public class CalendarEvent implements AutoCloseable {
     }
 
     public void setCalendarNumber(int calendarNumber, int numCalendars) {
+        if (this.calendarNumber == calendarNumber && this.numCalendars == numCalendars) {
+            return;
+        }
+
+        this.calendarNumber = calendarNumber;
+        this.numCalendars = numCalendars;
+
         this.regenerateRect(calendarNumber, numCalendars);
         this.text.getTransform().setPos(this.rect.getTransform().getCenter());
     }
