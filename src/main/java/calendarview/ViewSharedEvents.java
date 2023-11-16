@@ -3,6 +3,7 @@ package calendarview;
 import calendar.Calendar;
 import calendar.CalendarEvent;
 import calendar.CalendarSet;
+import jangl.color.Color;
 import jangl.color.ColorFactory;
 import jangl.coords.WorldCoords;
 import jangl.io.mouse.MouseEvent;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 public class ViewSharedEvents implements AutoCloseable {
+    private static final Color COLOR = ColorFactory.from255(130, 40, 30, 255);
     private final CalendarSet fullCalendarSet;
     private final CalendarSet sharedEventsCalSet;
     private final Calendar sharedEventsCal;
@@ -20,13 +22,13 @@ public class ViewSharedEvents implements AutoCloseable {
 
     public ViewSharedEvents(WorldCoords topLeft, CalendarSet set) {
         this.fullCalendarSet = set;
-        this.checkbox = new CheckboxWithText(topLeft, "Shared", ColorFactory.from255(0, 200, 0, 255));
+        this.checkbox = new CheckboxWithText(topLeft, "Shared", COLOR);
         this.checkbox.setState(false);
 
         this.sharedEventsCalSet = new CalendarSet(set.getCanvas());
 
         this.sharedEventsCal = new Calendar(this.sharedEventsCalSet.getCanvas());
-        this.sharedEventsCal.setColor(ColorFactory.from255(30, 180, 70, 255));
+        this.sharedEventsCal.setColor(COLOR);
         this.sharedEventsCal.setCalendarTitle("Shared Events");
 
         this.sharedEventsCalSet.addCalendar(this.sharedEventsCal);
