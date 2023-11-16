@@ -92,15 +92,35 @@ public class CalendarEvent implements AutoCloseable {
 
         CalendarEvent event = (CalendarEvent) o;
 
-        return this.text.getText().equals(event.text.getText())
-                && this.day == event.day
-                && this.startTime.withNano(0).equals(event.startTime.withNano(0))
-                && this.endTime.withNano(0).equals(event.endTime.withNano(0));
+        return this.getTextStr().equals(event.getTextStr())
+                && this.getDay() == event.getDay()
+                && this.getStartTime().equals(event.getStartTime())
+                && this.getEndTime().equals(event.getEndTime());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(this.text, this.day, this.startTime, this.endTime);
+    }
+
+    public LocalTime getStartTime() {
+        return this.startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return this.endTime;
+    }
+
+    public WeekDay getDay() {
+        return this.day;
+    }
+
+    public Text getText() {
+        return this.text;
+    }
+
+    public String getTextStr() {
+        return this.text.getText();
     }
 
     @Override
