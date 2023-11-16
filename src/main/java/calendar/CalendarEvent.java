@@ -89,11 +89,13 @@ public class CalendarEvent implements AutoCloseable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
+
         CalendarEvent event = (CalendarEvent) o;
-        return this.text.equals(event.text)
+
+        return this.text.getText().equals(event.text.getText())
                 && this.day == event.day
-                && this.startTime.equals(event.startTime)
-                && this.endTime.equals(event.endTime);
+                && this.startTime.withNano(0).equals(event.startTime.withNano(0))
+                && this.endTime.withNano(0).equals(event.endTime.withNano(0));
     }
 
     @Override
