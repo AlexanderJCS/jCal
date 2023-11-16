@@ -127,10 +127,6 @@ public class CalendarEvent implements AutoCloseable {
         return this.day;
     }
 
-    public Text getText() {
-        return this.text;
-    }
-
     public String getTextStr() {
         return this.text.getText();
     }
