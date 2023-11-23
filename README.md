@@ -21,3 +21,9 @@ The program starts with the first three calendars in alphabetical order selected
 You can see the events that are shared across classes by clicking the "Shared" button.  When clicked, only events that all selected calendars share are displayed.
 
 This is useful for finding classes that you share with your friends.
+
+### Adding More Calendars / Schedules
+
+You can add another calendar (a.k.a. schedule) to the list by creating a new `.jcal` file in [the calendar directory](resources/calendars).
+
+You can look at existing calendars for examples on how to create new ones.
